@@ -1,0 +1,26 @@
+%s A B C D
+%%
+<INITIAL>[0-9] BEGIN A;
+<INITIAL>\n BEGIN INITIAL; printf("\n invalid token\n");
+<A>[0-9] BEGIN A;
+<A>\n BEGIN INITIAL; printf("\n int\n");
+<A>. BEGIN B;
+<B>[0-9] BEGIN C;
+<B>\n BEGIN INITIAL; printf("\n invalid token\n");
+<C>[0-9] BEGIN C;
+<C>\n BEGIN INITIAL; printf("\n float\n");
+<INITIAL>[a-zA-Z] BEGIN D;
+<D>[a-zA-Z0-9_] BEGIN D;
+<D>\n BEGIN INITIAL; printf("\n identifier\n");
+. ;
+%%
+int main()
+{
+ printf("enter string using {a,b} - ");
+yylex();
+return 0;
+}
+int yywrap()
+{ 
+return 1;
+}
