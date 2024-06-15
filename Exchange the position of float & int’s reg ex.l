@@ -1,0 +1,20 @@
+%{
+int f=0,i=0;
+%}
+%%
+[0-9]+ {i++;}
+[0-9]+"."[0-9]+ {f++;}
+. ;
+%%
+int main()
+{
+printf("enter the string: ");
+yylex();
+printf("no. of floats: %d\n",f);
+printf("no. of ints: %d\n",i);
+return 0;
+}
+int yywrap()
+{
+return 1;
+}
